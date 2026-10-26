@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Vegetable Price Predictor</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= TOP VEGETABLE CARDS ================= -->
+
+<section class="vegetable-strip">
+
+    <div class="top-vegetable-card">
+
+        <div class="vegetable-icon">
+            🍅
+        </div>
+
+        <div>
+
+            <h3>
+                Tomato
+            </h3>
+
+            <p>
+                Daily Market Price
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-vegetable-card">
+
+        <div class="vegetable-icon">
+            🧅
+        </div>
+
+        <div>
+
+            <h3>
+                Onion
+            </h3>
+
+            <p>
+                Daily Market Price
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-vegetable-card">
+
+        <div class="vegetable-icon">
+            🥔
+        </div>
+
+        <div>
+
+            <h3>
+                Potato
+            </h3>
+
+            <p>
+                Daily Market Price
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="main-header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🥕
+        </div>
+
+
+        <div>
+
+            <h1>
+                Vegetable Price Predictor
+            </h1>
+
+            <p>
+                AI-Based 7-Day Vegetable Market Price Prediction
+            </p>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="container">
+
+
+    <!-- ================= PREDICTION SECTION ================= -->
+
+    <section class="prediction-section">
+
+
+        <div class="section-title">
+
+
+            <div class="section-number">
+                01
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Predict Future Price
+                </h2>
+
+                <p>
+                    Select a vegetable to predict its
+                    market price for the next 7 days.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <form method="POST"
+              class="prediction-form">
+
+
+            <div class="form-group">
+
+
+                <label for="vegetable">
+
+                    Select Vegetable
+
+                </label>
+
+
+                <div class="select-wrapper">
+
+
+                    <select
+                        id="vegetable"
+                        name="vegetable"
+                        required
+                    >
+
+
+                        <option
+                            value=""
+                            disabled
+                            {% if not vegetable %}
+                                selected
+                            {% endif %}
+                        >
+
+                            -- Select Vegetable --
+
+                        </option>
+
+
+
+                        <option
+                            value="Tomato"
+                            {% if vegetable == "Tomato" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            🍅 Tomato
+
+                        </option>
+
+
+
+                        <option
+                            value="Onion"
+                            {% if vegetable == "Onion" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            🧅 Onion
+
+                        </option>
+
+
+
+                        <option
+                            value="Potato"
+                            {% if vegetable == "Potato" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            🥔 Potato
+
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= PREDICT BUTTON ================= -->
+
+            <button
+                type="submit"
+                class="predict-button"
+            >
+
+
+                <span class="button-icon">
+                    🔮
+                </span>
+
+
+                <span>
+                    Predict Next 7 Days
+                </span>
+
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- ================= RESET BUTTON ================= -->
+
+        <a href="/"
+           class="reset-button">
+
+            🔄 Reset Prediction
+
+        </a>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PREDICTION RESULTS
+    ====================================================== -->
+
+
+    {% if predictions %}
+
+
+    <section class="results-section">
+
+
+        <!-- ================= RESULTS TITLE ================= -->
+
+
+        <div class="results-title">
+
+
+            <div class="section-number">
+                02
+            </div>
+
+
+            <div>
+
+
+                <h2>
+
+                    {{ vegetable }} Price Prediction
+
+                </h2>
+
+
+                <p>
+
+                    Estimated market price for the
+                    upcoming seven days.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= CHART CARD ================= -->
+
+
+        <div class="chart-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <h3>
+
+                        📈 7-Day Price Forecast
+
+                    </h3>
+
+
+                    <p>
+
+                        Predicted vegetable market
+                        price trend
+
+                    </p>
+
+
+                </div>
+
+
+                <div class="price-unit">
+
+                    ₹ / KG
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="chart-container">
+
+
+                <canvas id="priceChart"></canvas>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= TABLE CARD ================= -->
+
+
+        <div class="table-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <h3>
+
+                        📊 Daily Market Forecast
+
+                    </h3>
+
+
+                    <p>
+
+                        Predicted price details
+
+                    </p>
+
+
+                </div>
+
+
+                <div class="days-count">
+
+                    7 DAYS
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="table-container">
+
+
+                <table>
+
+
+                    <thead>
+
+
+                        <tr>
+
+
+                            <th>
+                                DAY
+                            </th>
+
+
+                            <th>
+                                DATE
+                            </th>
+
+
+                            <th>
+                                VEGETABLE
+                            </th>
+
+
+                            <th>
+                                PREDICTED PRICE
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                        {% for prediction in predictions %}
+
+
+                        <tr>
+
+
+                            <!-- DAY -->
+
+                            <td>
+
+
+                                <span class="day-badge">
+
+                                    {{ loop.index }}
+
+                                </span>
+
+
+                            </td>
+
+
+
+                            <!-- DATE -->
+
+                            <td>
+
+                                {{ prediction.date }}
+
+                            </td>
+
+
+
+                            <!-- VEGETABLE -->
+
+                            <td>
+
+
+                                {% if vegetable == "Tomato" %}
+
+                                    🍅 Tomato
+
+                                {% elif vegetable == "Onion" %}
+
+                                    🧅 Onion
+
+                                {% elif vegetable == "Potato" %}
+
+                                    🥔 Potato
+
+                                {% else %}
+
+                                    {{ vegetable }}
+
+                                {% endif %}
+
+
+                            </td>
+
+
+
+                            <!-- PRICE -->
+
+                            <td>
+
+
+                                <strong class="price-value">
+
+                                    ₹{{ prediction.price }}
+
+                                </strong>
+
+
+                                <span class="per-kg">
+
+                                    / kg
+
+                                </span>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= RESET AFTER RESULTS ================= -->
+
+
+        <div class="result-reset">
+
+
+            <a href="/"
+               class="reset-button">
+
+                🔄 Make Another Prediction
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer class="footer">
+
+
+    <div class="footer-brand">
+
+
+        <div class="footer-icon">
+
+            🥕
+
+        </div>
+
+
+        <div>
+
+
+            <strong>
+
+                Vegetable Market Daily Price Prediction
+
+            </strong>
+
+
+            <span>
+
+                AI-Based 7-Day Price Forecasting System
+
+            </span>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-copy">
+
+        © 2026 Mini Project
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     CHART.JS
+====================================================== -->
+
+
+{% if predictions %}
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+
+<script>
+
+
+    /* ================= DATE DATA ================= */
+
+
+    const dates = [
+
+        {% for prediction in predictions %}
+
+            "{{ prediction.date }}"{% if not loop.last %},{% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+
+    /* ================= PRICE DATA ================= */
+
+
+    const prices = [
+
+        {% for prediction in predictions %}
+
+            {{ prediction.price }}{% if not loop.last %},{% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+
+    /* ================= CHART ELEMENT ================= */
+
+
+    const chartElement =
+        document.getElementById("priceChart");
+
+
+
+    /* ================= CREATE CHART ================= */
+
+
+    if (chartElement) {
+
+
+        new Chart(
+
+            chartElement,
+
+            {
+
+
+                type: "line",
+
+
+
+                data: {
+
+
+                    labels: dates,
+
+
+
+                    datasets: [
+
+
+                        {
+
+
+                            label:
+                                "Predicted Price",
+
+
+
+                            data:
+                                prices,
+
+
+
+                            borderColor:
+                                "#16a34a",
+
+
+
+                            backgroundColor:
+                                "rgba(22, 163, 74, 0.12)",
+
+
+
+                            borderWidth:
+                                3,
+
+
+
+                            fill:
+                                true,
+
+
+
+                            tension:
+                                0.4,
+
+
+
+                            pointRadius:
+                                5,
+
+
+
+                            pointHoverRadius:
+                                7,
+
+
+
+                            pointBackgroundColor:
+                                "#ffffff",
+
+
+
+                            pointBorderColor:
+                                "#16a34a",
+
+
+
+                            pointBorderWidth:
+                                3
+
+                        }
+
+
+                    ]
+
+
+                },
+
+
+
+                options: {
+
+
+                    responsive:
+                        true,
+
+
+                    maintainAspectRatio:
+                        false,
+
+
+
+                    plugins: {
+
+
+                        legend: {
+
+
+                            display:
+                                false
+
+
+                        },
+
+
+                        tooltip: {
+
+
+                            callbacks: {
+
+
+                                label:
+                                    function(context) {
+
+
+                                        return (
+                                            " ₹" +
+                                            context.parsed.y +
+                                            " / kg"
+                                        );
+
+
+                                    }
+
+
+                            }
+
+
+                        }
+
+
+                    },
+
+
+
+                    scales: {
+
+
+                        y: {
+
+
+                            beginAtZero:
+                                false,
+
+
+
+                            ticks: {
+
+
+                                callback:
+                                    function(value) {
+
+
+                                        return "₹" + value;
+
+
+                                    }
+
+
+                            }
+
+
+                        },
+
+
+
+                        x: {
+
+
+                            grid: {
+
+
+                                display:
+                                    false
+
+
+                            }
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+        );
+
+
+    }
+
+
+</script>
+
+
+{% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root {
+    --green: #16a34a;
+    --green-dark: #15803d;
+    --green-light: #dcfce7;
+    --dark: #0f172a;
+    --text: #334155;
+    --muted: #64748b;
+    --light-muted: #94a3b8;
+    --white: #ffffff;
+    --background: #f6f8f7;
+    --border: #e2e8f0;
+
+    --shadow:
+        0 15px 40px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   TOP VEGETABLE STRIP
+===================================================== */
+
+.vegetable-strip {
+    width: 86%;
+    max-width: 1180px;
+    margin: 30px auto 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.top-vegetable-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow: var(--shadow);
+
+    transition: all 0.25s ease;
+}
+
+.top-vegetable-card:hover {
+    transform: translateY(-3px);
+    border-color: #86efac;
+    box-shadow:
+        0 12px 28px rgba(22, 163, 74, 0.10);
+}
+
+.vegetable-icon {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0fdf4;
+
+    font-size: 30px;
+}
+
+.top-vegetable-card h3 {
+    font-family: "Manrope", sans-serif;
+    color: var(--dark);
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.top-vegetable-card p {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.main-header {
+    width: 86%;
+    max-width: 1180px;
+
+    margin: 25px auto 0;
+    padding: 25px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 15px;
+
+    background: var(--green-light);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+}
+
+.brand h1 {
+    font-family: "Manrope", sans-serif;
+    color: var(--dark);
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.brand p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.container {
+    width: 86%;
+    max-width: 1180px;
+
+    margin: auto;
+    padding: 35px 0 70px;
+}
+
+
+/* =====================================================
+   PREDICTION SECTION
+===================================================== */
+
+.prediction-section {
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    padding: 32px;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.prediction-section::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #16a34a,
+            #4ade80,
+            #86efac
+        );
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.section-number {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    background: var(--green-light);
+
+    color: var(--green-dark);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.section-title h2 {
+    font-family: "Manrope", sans-serif;
+
+    color: var(--dark);
+
+    font-size: 27px;
+}
+
+.section-title p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.prediction-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    color: var(--dark);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+
+/* =====================================================
+   SELECT
+===================================================== */
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: "⌄";
+
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: 18px;
+
+    pointer-events: none;
+}
+
+select {
+    width: 100%;
+    height: 100%;
+}
